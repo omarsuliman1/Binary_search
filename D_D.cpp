@@ -1,29 +1,49 @@
-#include <bits/stdc++.h>
+ #include <bits/stdc++.h>
 using namespace std;
-
-#define Sonic ios::sync_with_stdio(false); cin.tie(nullptr);
-#define int long long
-
-void fun() {
-    int n;
-    cin >> n;
-
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
-
-    sort(a.begin(), a.end());
-
-    int cnt = 1;  
-    for (int i = 1; i < n; i++) {
-        if (a[i] != a[i - 1]) 
-            cnt++;
-    }
-
-    cout << cnt << "\n";
+ 
+void fastIO() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 }
-
-signed main() {
-    Sonic
-    fun();
+ 
+ 
+ 
+int n, t;
+ 
+bool can(long long time, vector<int> & v){
+    long long total = 0;
+    for (int i = 0; i < v.size(); ++i) {
+        total += time / v[i];
+        if(total >= t)
+            return 1;
+    }
+    return total >= t;
+}
+ 
+signed main()
+{
+    fastIO();  
+ 
+    cin >> n >> t;
+ 
+    vector<int> v(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> v[i];
+    }
+ 
+    long long l = 1, r = 1e18, mid, ans;
+    while (l <= r){
+        mid = l + (r - l)/2;
+        if(can(mid, v)){
+            r = mid - 1;
+            ans = mid;
+        }
+        else{
+            l = mid + 1;
+        }
+    }
+ 
+    cout << ans << endl;
+ 
 }
